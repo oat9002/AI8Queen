@@ -35,6 +35,39 @@ public class EightQueenSolver {
         return false;
     }
 
+    public void simulatedAnnealing(){
+        for(int t = 1, temperature = MAXTIMES;  t<MAXTIMES;  t++, temperature--){
+            if(temperature == 0){
+                printTable();
+                return;
+            }
+            Queen selectedQueen = selectRandomQueen();
+            int newX;
+            int newY;
+            while(true){
+                newX = (int)(Math.random()*TABLESIZE);
+                newY = (int)(Math.random()*TABLESIZE);
+                if(!isQueen(newX,newY)){
+                    break;
+                }
+            }
+            int deltaE = computeDeltaE(selectedQueen, newX, newY);
+            if(deltaE < 0){
+                moveQueen(selectedQueen,newX,newY);
+            }
+            else{
+                if(shouldQueenMove(deltaE,temperature)){
+                    moveQueen(selectedQueen,newX,newY);
+                }
+            }
+        }
+    }
+
+    public void moveQueen(Queen queen,int x,int y){
+        queen.setX(x);
+        queen.setY(y);
+    }
+
     public Queen selectRandomQueen(){
         return queenList[(int)(Math.random()*8)];
     }
@@ -59,7 +92,7 @@ public class EightQueenSolver {
         int newNumberOfCollision = numberOfCollision();
         selectedQueen.setX(tempX);
         selectedQueen.setY(tempY);
-        return Math.abs(newNumberOfCollision - oldNumberOfCollision);
+        return newNumberOfCollision - oldNumberOfCollision;
     }
 
     public int numberOfCollision() {
