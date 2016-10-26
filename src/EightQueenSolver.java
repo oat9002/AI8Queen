@@ -5,7 +5,7 @@
 public class EightQueenSolver {
     private static final int NUMBEROFQUEEN = 8;
     private static final int TABLESIZE = 8;
-    private static final int MAXTIMES = 10000000;
+    private static final int MAXTIMES = 500;
 
     private Queen[] queenList = new Queen[NUMBEROFQUEEN];
 
@@ -36,7 +36,7 @@ public class EightQueenSolver {
     }
 
     public void simulatedAnnealing(){
-        for(int t = 1, temperature = MAXTIMES;  t<MAXTIMES;  t++, temperature--){
+        for(int t = 1, temperature = MAXTIMES;  t <= MAXTIMES;  t++, temperature--){
             if(temperature == 0){
                 printTable();
                 return;
@@ -60,6 +60,11 @@ public class EightQueenSolver {
                     moveQueen(selectedQueen,newX,newY);
                 }
             }
+            if(t % 1000 == 0) {
+                printTable();
+                System.out.println(numberOfCollision());
+                System.out.println("+++++++++++++++++++");
+            }
         }
     }
 
@@ -80,7 +85,7 @@ public class EightQueenSolver {
     }
 
     public double computeProbabilityToMove(int deltaE, int temperature){
-        return Math.pow(Math.E,-deltaE/temperature);
+        return Math.pow(Math.E, -deltaE/temperature);
     }
 
     public int computeDeltaE(Queen selectedQueen, int newX, int newY){
@@ -98,29 +103,21 @@ public class EightQueenSolver {
     public int numberOfCollision() {
         int count = 0;
         for(int i = 0; i < queenList.length; i++) {
-//            System.out.print(i+"-"+ queenList[i].getX()+","+ queenList[i].getY()+": ");
             for(int j = 0; j < queenList.length; j++) {
                 if(i != j) {
                     if (queenList[i].getX() == queenList[j].getX()){
-//                        System.out.print(queenList[j].getX()+",");
-//                        System.out.print(queenList[j].getY()+" ");
                         count++;
                     }
                     else if (queenList[i].getY() == queenList[j].getY()){
-//                        System.out.print(queenList[j].getX()+",");
-//                        System.out.print(queenList[j].getY()+" ");
                         count++;
                     }
                     else if (Math.abs(queenList[i].getX() - queenList[j].getX()) == Math.abs(queenList[i].getY() - queenList[j].getY())){
-//                        System.out.print(queenList[j].getX()+",");
-//                        System.out.print(queenList[j].getY()+" ");
                         count++;
                     }
                 }
             }
-//            System.out.println();
         }
-        return count;
+        return count * 10000;
     }
 
     public void randomMoveQueen(Queen queen){
