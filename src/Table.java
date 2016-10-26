@@ -26,8 +26,20 @@ public class Table {
     }
 
     public int checkCollision() {
-
-        return 0;
+        int count = 0;
+        for(int i = 0; i < queens.length;i++) {
+            for(int j = 0;j < queens.length;j++) {
+                if(i != j) {
+                    if (queens[i].getX() == queens[j].getX())
+                        count++;
+                    else if (queens[i].getY() == queens[j].getY())
+                        count++;
+                    else if (Math.abs(queens[i].getX() - queens[j].getX()) == Math.abs(queens[i].getY() - queens[j].getY()))
+                        count++;
+                }
+            }
+        }
+        return count;
     }
 
 
