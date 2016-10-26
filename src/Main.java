@@ -5,5 +5,9 @@ public class Main {
         EightQueenSolver eightQueenSolver = new EightQueenSolver();
         eightQueenSolver.printTable();
         System.out.println(eightQueenSolver.numberOfCollision());
+        eightQueenSolver.simulatedAnnealing();
+        System.out.println("============================");
+        eightQueenSolver.printTable();
+        System.out.println(eightQueenSolver.numberOfCollision());
     }
 }

@@ -5,7 +5,7 @@
 public class EightQueenSolver {
     private static final int NUMBEROFQUEEN = 8;
     private static final int TABLESIZE = 8;
-    private static final int MAXTIMES = 10;
+    private static final int MAXTIMES = 10000000;
 
     private Queen[] queenList = new Queen[NUMBEROFQUEEN];
 
