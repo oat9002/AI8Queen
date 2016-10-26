@@ -35,8 +35,19 @@ public class EightQueenSolver {
         return false;
     }
 
-    public int computeProbabilityToMove(){
+    public Queen selectRandomQueen(){
+        return queenList[(int)(Math.random()*8)];
+    }
 
+    public boolean shouldQueenMove(int deltaE, int temperature){
+        if(Math.random() > computeProbabilityToMove(deltaE,temperature)){
+            return false;
+        }
+        return true;
+    }
+
+    public double computeProbabilityToMove(int deltaE, int temperature){
+        return Math.pow(Math.E,-deltaE/temperature);
     }
 
     public int computeDeltaE(Queen selectedQueen, int newX, int newY){
